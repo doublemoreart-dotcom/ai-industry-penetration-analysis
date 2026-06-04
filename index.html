@@ -13,6 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anta&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -140,8 +141,37 @@ button, select { font-family: inherit; }
   line-height: 1.65;
 }
 .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
-.metric-card { appearance: none; font-family: inherit; text-align: left; width: 100%; border: 0.5px solid transparent; background: var(--page-surface-alt); border-radius: 8px; padding: 1rem; cursor: pointer; }
+.metric-card { appearance: none; font-family: inherit; text-align: left; width: 100%; border: 0.5px solid transparent; background: var(--page-surface-alt); border-radius: 8px; padding: 1rem; cursor: pointer; position: relative; }
 .metric-card:hover, .metric-card:focus-visible { border-color: #378ADD; box-shadow: 0 10px 24px rgba(55,138,221,0.12); outline: none; }
+.card-click-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(24px * var(--page-font-scale));
+  height: calc(24px * var(--page-font-scale));
+  border: 0.5px solid var(--page-border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--page-surface) 74%, transparent);
+  color: var(--page-text-muted);
+  font-family: "Material Symbols Outlined";
+  font-size: calc(15px * var(--page-font-scale));
+  font-weight: 400;
+  line-height: 1;
+  opacity: 0.78;
+  transition: color 0.16s ease, border-color 0.16s ease, transform 0.16s ease, opacity 0.16s ease;
+}
+.metric-card:hover .card-click-icon,
+.metric-card:focus-visible .card-click-icon,
+.impact-card:hover .card-click-icon,
+.impact-card:focus-visible .card-click-icon {
+  border-color: #378ADD;
+  color: #378ADD;
+  opacity: 1;
+  transform: translate(1px, -1px);
+}
 .metric-label { font-size: calc(12px * var(--page-font-scale)); color: var(--page-text-muted); margin-bottom: 4px; }
 .metric-val { font-size: calc(22px * var(--page-font-scale)); font-weight: 500; color: var(--page-text); }
 .metric-sub { font-size: calc(12px * var(--page-font-scale)); color: var(--page-text-muted); margin-top: 2px; }
@@ -298,7 +328,7 @@ button, select { font-family: inherit; }
 .tooltip-title { font-weight: 600; margin-bottom: 4px; }
 .tooltip-meta { color: var(--page-text-muted); }
 .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 15px; margin-bottom: 1.5rem; }
-.impact-card { appearance: none; font-family: inherit; text-align: left; width: 100%; background: var(--page-surface); border: 0.5px solid var(--page-border); border-radius: 8px; padding: 21px; cursor: pointer; }
+.impact-card { appearance: none; font-family: inherit; text-align: left; width: 100%; background: var(--page-surface); border: 0.5px solid var(--page-border); border-radius: 8px; padding: 21px; cursor: pointer; position: relative; }
 .impact-card:hover, .impact-card:focus-visible { border-color: #378ADD; box-shadow: 0 10px 24px rgba(55,138,221,0.12); outline: none; }
 .impact-icon { font-size: calc(20px * var(--page-font-scale)); margin-bottom: 8px; color: var(--page-text-muted); }
 .impact-industry { font-size: calc(11px * var(--page-font-scale)); color: var(--page-text-muted); margin-bottom: 4px; }
@@ -513,21 +543,25 @@ body.drawer-open .drawer-backdrop { opacity: 1; pointer-events: auto; }
 
 <div class="grid-2">
   <button class="metric-card" type="button" data-metric-index="0" aria-label="查看組織定期使用 AI 相關文章">
+    <span class="card-click-icon" aria-hidden="true">arrow_outward</span>
     <div class="metric-label">組織定期使用 AI</div>
     <div class="metric-val">88%</div>
     <div class="metric-sub">2025 年，至少一個業務功能（McKinsey）</div>
   </button>
   <button class="metric-card" type="button" data-metric-index="1" aria-label="查看 AI 對全球 GDP 貢獻預測相關文章">
+    <span class="card-click-icon" aria-hidden="true">arrow_outward</span>
     <div class="metric-label">AI 對全球 GDP 貢獻預測</div>
     <div class="metric-val">$15.7 兆</div>
     <div class="metric-sub">2030 年估計（PwC）</div>
   </button>
   <button class="metric-card" type="button" data-metric-index="2" aria-label="查看 Agentic AI 規模化相關文章">
+    <span class="card-click-icon" aria-hidden="true">arrow_outward</span>
     <div class="metric-label">Agentic AI 規模化</div>
     <div class="metric-val">23%</div>
     <div class="metric-sub">2025 年，已在企業某處擴大部署（McKinsey）</div>
   </button>
   <button class="metric-card" type="button" data-metric-index="3" aria-label="查看 Agentic AI 實驗中相關文章">
+    <span class="card-click-icon" aria-hidden="true">arrow_outward</span>
     <div class="metric-label">Agentic AI 實驗中</div>
     <div class="metric-val">39%</div>
     <div class="metric-sub">2025 年，已開始實驗 AI agents（McKinsey）</div>
@@ -977,6 +1011,7 @@ const impactsEl = document.getElementById('impacts');
 impactData.forEach((d, index) => {
   impactsEl.innerHTML += `
     <button class="impact-card" type="button" data-impact-index="${index}" aria-label="查看${d.industry}詳情">
+      <span class="card-click-icon" aria-hidden="true">arrow_outward</span>
       <div class="impact-icon" aria-hidden="true"><i class="ti ${d.icon}"></i></div>
       <div class="impact-industry">${d.industry}</div>
       <div class="impact-title">${d.title}</div>
