@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI 對各大產業的滲透率與實際影響｜MVP 分析頁</title>
 <meta name="description" content="以單頁資料視覺化分析 AI 對各大產業的滲透率、投資強度、生產力影響，以及混合型人才如何重組職能系統。">
-<meta name="page-version-date" content="2026-06-04">
-<meta name="page-version-number" content="v2026.06.04">
+<meta name="page-version-date" content="2026-06-05">
+<meta name="page-version-number" content="v2026.06.05">
 <meta property="og:type" content="website">
 <meta property="og:title" content="AI 對各大產業的滲透率與實際影響">
 <meta property="og:description" content="從產業採用率、投資強度、生產力提升，到混合型人才如何重組設計、產品、工程、行銷與商業流程。">
@@ -129,6 +129,10 @@ button, select { font-family: inherit; }
   margin-bottom: 1.25rem;
 }
 .section-heading-text { max-width: 700px; }
+.section-heading-text-wide {
+  flex: 1 1 100%;
+  max-width: none;
+}
 .section-title {
   display: flex;
   align-items: center;
@@ -166,6 +170,7 @@ button, select { font-family: inherit; }
   font-size: calc(12px * var(--page-font-scale));
   line-height: 1.65;
   margin-top: 10px;
+  width: 100%;
 }
 .section-inline-note-title {
   color: var(--page-text);
@@ -174,10 +179,21 @@ button, select { font-family: inherit; }
   margin-bottom: 6px;
 }
 .section-inline-note-list {
-  padding-left: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: 10px;
+  list-style: none;
+  padding-left: 0;
 }
 .section-inline-note-list li + li {
-  margin-top: 6px;
+  margin-top: 0;
+}
+.section-inline-note-list li {
+  min-width: 0;
+  padding: 12px 13px;
+  border: 0.5px solid var(--page-border);
+  border-radius: 8px;
+  background: var(--page-surface);
 }
 .section-inline-note strong {
   color: var(--page-text);
@@ -249,23 +265,63 @@ button, select { font-family: inherit; }
   background: var(--page-surface);
   border: 0.5px solid var(--page-border);
   border-radius: 8px;
-  padding: 1rem;
+  padding: 0;
   margin-top: -0.5rem;
   color: var(--page-text-muted);
+  overflow: hidden;
 }
 .stage-explanation-title,
 .bubble-explanation-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   color: var(--page-text);
   font-size: calc(13px * var(--page-font-scale));
   font-weight: 600;
-  margin-bottom: 8px;
+  padding: 14px 1rem;
+  cursor: pointer;
+  list-style: none;
+}
+.stage-explanation-title::-webkit-details-marker,
+.bubble-explanation-title::-webkit-details-marker {
+  display: none;
+}
+.stage-explanation-title::after,
+.bubble-explanation-title::after {
+  content: "expand_more";
+  flex: 0 0 auto;
+  width: calc(24px * var(--page-font-scale));
+  height: calc(24px * var(--page-font-scale));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.5px solid var(--page-border);
+  border-radius: 999px;
+  color: var(--page-text-muted);
+  font-family: "Material Symbols Outlined";
+  font-size: calc(18px * var(--page-font-scale));
+  font-weight: 400;
+  line-height: 1;
+  transition: transform 0.16s ease, color 0.16s ease, border-color 0.16s ease;
+}
+.stage-explanation[open] .stage-explanation-title::after,
+.bubble-explanation[open] .bubble-explanation-title::after {
+  transform: rotate(180deg);
+}
+.stage-explanation-title:hover::after,
+.stage-explanation-title:focus-visible::after,
+.bubble-explanation-title:hover::after,
+.bubble-explanation-title:focus-visible::after {
+  border-color: #378ADD;
+  color: #378ADD;
 }
 .stage-explanation-grid,
 .bubble-explanation-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
-  margin-bottom: 10px;
+  padding: 0 1rem 1rem;
 }
 .stage-explanation-item,
 .bubble-explanation-item {
@@ -634,7 +690,7 @@ body.drawer-open .drawer-backdrop { opacity: 1; pointer-events: auto; }
 <section class="analysis-section" id="investment-productivity" aria-labelledby="investment-productivity-title">
 <hr class="divider">
 <div class="section-heading">
-  <div class="section-heading-text">
+  <div class="section-heading-text section-heading-text-wide">
     <h2 class="section-title" id="investment-productivity-title"><span class="section-title-icon" aria-hidden="true">bubble_chart</span>AI 投資規模 vs. 生產力提升預估</h2>
     <p class="section-description">泡泡圖用來觀察投資強度、生產力提升潛力與市場規模的相對關係，泡泡大小代表市場規模。</p>
     <div class="section-inline-note" aria-label="泡泡圖讀圖重點">
@@ -654,20 +710,20 @@ body.drawer-open .drawer-backdrop { opacity: 1; pointer-events: auto; }
 <div class="chart-wrap">
   <canvas id="bubbleChart" role="img" aria-label="AI 投資與生產力提升泡泡圖，顯示各產業相關性">各產業 AI 投資規模與生產力提升相關性。</canvas>
 </div>
-<div class="bubble-explanation">
-  <div class="bubble-explanation-title">如何解讀這張圖</div>
+<details class="bubble-explanation">
+  <summary class="bubble-explanation-title">如何解讀這張圖</summary>
   <div class="bubble-explanation-grid">
     <div class="bubble-explanation-item"><strong>X 軸代表 AI 投資規模</strong>，位置越往右，表示該產業投入 AI 基礎建設、模型、資料平台與導入專案的資源越高。</div>
     <div class="bubble-explanation-item"><strong>Y 軸代表生產力提升預估</strong>，位置越往上，表示 AI 對該產業流程效率、決策速度或產出品質的潛在改善越明顯。</div>
     <div class="bubble-explanation-item"><strong>泡泡大小代表市場規模</strong>，泡泡越大，表示即使單位改善幅度不高，累積到整個產業仍可能形成可觀的經濟影響。</div>
   </div>
-</div>
+</details>
 </section>
 
 <section class="analysis-section" id="industry-impact" aria-labelledby="industry-impact-title">
 <hr class="divider">
 <div class="section-heading">
-  <div class="section-heading-text">
+  <div class="section-heading-text section-heading-text-wide">
     <h2 class="section-title" id="industry-impact-title"><span class="section-title-icon" aria-hidden="true">workspaces</span>各產業 AI 應用實際影響</h2>
     <p class="section-description">整理各產業較常見的 AI 成效指標與落地限制，點擊卡片可查看更完整的應用、風險與觀察重點。</p>
     <div class="section-inline-note" aria-label="產業影響解讀">
@@ -686,7 +742,7 @@ body.drawer-open .drawer-backdrop { opacity: 1; pointer-events: auto; }
 <section class="analysis-section" id="adoption-stages" aria-labelledby="adoption-stages-title">
 <hr class="divider">
 <div class="section-heading">
-  <div class="section-heading-text">
+  <div class="section-heading-text section-heading-text-wide">
     <h2 class="section-title" id="adoption-stages-title"><span class="section-title-icon" aria-hidden="true">stacked_bar_chart</span>AI 採用的三大階段分佈</h2>
     <p class="section-description">以深度整合、局部試行、探索評估三個階段，觀察不同產業從試用到制度化導入的成熟度差異。</p>
     <div class="section-inline-note" aria-label="採用階段讀圖重點">
@@ -705,14 +761,14 @@ body.drawer-open .drawer-backdrop { opacity: 1; pointer-events: auto; }
 <div class="chart-wrap2">
   <canvas id="stageChart" role="img" aria-label="各產業 AI 採用階段分佈橫條圖">各產業在深度整合、局部試行、探索評估三階段的分佈比例。</canvas>
 </div>
-<div class="stage-explanation">
-  <div class="stage-explanation-title">如何解讀這張圖</div>
+<details class="stage-explanation">
+  <summary class="stage-explanation-title">如何解讀這張圖</summary>
   <div class="stage-explanation-grid">
     <div class="stage-explanation-item"><strong>深度整合代表</strong> AI 已進入核心流程，例如開發、風控、排程、客服或決策輔助，並開始影響 KPI、組織分工與治理制度。</div>
     <div class="stage-explanation-item"><strong>局部試行代表</strong> AI 已在特定團隊或任務中帶來效率，但尚未全面接入資料、權限、稽核與跨部門流程。</div>
     <div class="stage-explanation-item"><strong>探索評估代表</strong> 產業仍在驗證資料品質、責任歸屬、投資報酬與法規邊界，使用情境多半停留在原型或輔助工具。</div>
   </div>
-</div>
+</details>
 </section>
 
 <section class="analysis-section" id="industry-clusters" aria-labelledby="industry-clusters-title">
@@ -829,7 +885,7 @@ body.drawer-open .drawer-backdrop { opacity: 1; pointer-events: auto; }
     <section aria-labelledby="copyright-title">
       <div class="footer-title" id="copyright-title">版權宣告</div>
       <div class="footer-copy">
-        本頁內容由 Dino 整理與改寫，僅供產業研究、簡報討論與內部決策參考。外部資料、商標與報告內容之著作權歸原權利人所有；本頁新增的中文分析文字、資料編排與視覺化設計，未經授權請勿整頁轉載、商業散布或移除來源標註。引用本頁觀點時，請保留頁名「AI 對產業的數據觀察」、推版日期 <span data-footer-version-date>2026-06-04</span>、版號 <span data-footer-version-number>v2026.06.04</span> 與主要資料來源。
+        本頁內容由 Dino 整理與改寫，僅供產業研究、簡報討論與內部決策參考。外部資料、商標與報告內容之著作權歸原權利人所有；本頁新增的中文分析文字、資料編排與視覺化設計，未經授權請勿整頁轉載、商業散布或移除來源標註。引用本頁觀點時，請保留頁名「AI 對產業的數據觀察」、推版日期 <span data-footer-version-date>2026-06-05</span>、版號 <span data-footer-version-number>v2026.06.05</span>。
       </div>
     </section>
   </div>
