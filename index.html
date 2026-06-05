@@ -161,6 +161,28 @@ button, select { font-family: inherit; }
   font-size: calc(12px * var(--page-font-scale));
   line-height: 1.65;
 }
+.section-inline-note {
+  color: var(--page-text-muted);
+  font-size: calc(12px * var(--page-font-scale));
+  line-height: 1.65;
+  margin-top: 10px;
+}
+.section-inline-note-title {
+  color: var(--page-text);
+  font-size: calc(13px * var(--page-font-scale));
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.section-inline-note-list {
+  padding-left: 1rem;
+}
+.section-inline-note-list li + li {
+  margin-top: 6px;
+}
+.section-inline-note strong {
+  color: var(--page-text);
+  font-weight: 600;
+}
 .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
 .metric-card { appearance: none; font-family: inherit; text-align: left; width: 100%; border: 0.5px solid transparent; background: var(--page-surface-alt); border-radius: 8px; padding: 1rem; cursor: pointer; position: relative; }
 .metric-card:hover, .metric-card:focus-visible { border-color: #378ADD; box-shadow: 0 10px 24px rgba(55,138,221,0.12); outline: none; }
@@ -615,6 +637,12 @@ body.drawer-open .drawer-backdrop { opacity: 1; pointer-events: auto; }
   <div class="section-heading-text">
     <h2 class="section-title" id="investment-productivity-title"><span class="section-title-icon" aria-hidden="true">bubble_chart</span>AI 投資規模 vs. 生產力提升預估</h2>
     <p class="section-description">泡泡圖用來觀察投資強度、生產力提升潛力與市場規模的相對關係，泡泡大小代表市場規模。</p>
+    <div class="section-inline-note" aria-label="泡泡圖讀圖重點">
+      <ul class="section-inline-note-list">
+        <li><strong>右上角與大泡泡</strong>：右上角代表「投入高、改善潛力也高」；大泡泡則代表「市場基數大，任何流程改善都容易被放大」。<span class="chart-note-source">讀圖重點</span></li>
+        <li><strong>投資高不一定等於效益高</strong>：真正關鍵是 AI 是否接進核心工作流、資料是否可用、治理是否成熟，以及改善是否能轉成營收、成本、風險或交付速度上的實際指標。<span class="chart-note-source">判讀口徑</span></li>
+      </ul>
+    </div>
   </div>
 </div>
 <div class="legend">
@@ -633,10 +661,6 @@ body.drawer-open .drawer-backdrop { opacity: 1; pointer-events: auto; }
     <div class="bubble-explanation-item"><strong>Y 軸代表生產力提升預估</strong>，位置越往上，表示 AI 對該產業流程效率、決策速度或產出品質的潛在改善越明顯。</div>
     <div class="bubble-explanation-item"><strong>泡泡大小代表市場規模</strong>，泡泡越大，表示即使單位改善幅度不高，累積到整個產業仍可能形成可觀的經濟影響。</div>
   </div>
-  <ul class="bubble-explanation-note chart-note-list">
-    <li><strong>右上角與大泡泡</strong>：右上角代表「投入高、改善潛力也高」；大泡泡則代表「市場基數大，任何流程改善都容易被放大」。<span class="chart-note-source">讀圖重點</span></li>
-    <li><strong>投資高不一定等於效益高</strong>：真正關鍵是 AI 是否接進核心工作流、資料是否可用、治理是否成熟，以及改善是否能轉成營收、成本、風險或交付速度上的實際指標。<span class="chart-note-source">判讀口徑</span></li>
-  </ul>
 </div>
 </section>
 
@@ -646,17 +670,17 @@ body.drawer-open .drawer-backdrop { opacity: 1; pointer-events: auto; }
   <div class="section-heading-text">
     <h2 class="section-title" id="industry-impact-title"><span class="section-title-icon" aria-hidden="true">workspaces</span>各產業 AI 應用實際影響</h2>
     <p class="section-description">整理各產業較常見的 AI 成效指標與落地限制，點擊卡片可查看更完整的應用、風險與觀察重點。</p>
+    <div class="section-inline-note" aria-label="產業影響解讀">
+      <div class="section-inline-note-title">從單點效率到流程重組</div>
+      <ul class="section-inline-note-list">
+        <li><strong>數字代表的是「可觀察的效益方向」</strong>：例如速度、準確率、轉換率或成本節省；它們適合用來比較產業潛力，但仍需搭配資料口徑與導入成熟度解讀。</li>
+        <li><strong>真正影響通常發生在工作流被重排時</strong>：AI 先改善單一任務，接著影響審核、交接、決策與治理流程，最後才可能轉成營收、成本、風險或交付速度上的實際成果。</li>
+        <li><strong>高效益不代表低風險</strong>：金融、醫療、法律等產業即使效率提升明顯，也更需要可解釋性、責任歸屬、資料治理與人工覆核機制。</li>
+      </ul>
+    </div>
   </div>
 </div>
 <div class="impact-grid" id="impacts"></div>
-<div class="impact-explanation">
-  <div class="impact-explanation-title">從單點效率到流程重組</div>
-  <ul class="impact-explanation-list">
-    <li><strong>數字代表的是「可觀察的效益方向」</strong>：例如速度、準確率、轉換率或成本節省；它們適合用來比較產業潛力，但仍需搭配資料口徑與導入成熟度解讀。</li>
-    <li><strong>真正影響通常發生在工作流被重排時</strong>：AI 先改善單一任務，接著影響審核、交接、決策與治理流程，最後才可能轉成營收、成本、風險或交付速度上的實際成果。</li>
-    <li><strong>高效益不代表低風險</strong>：金融、醫療、法律等產業即使效率提升明顯，也更需要可解釋性、責任歸屬、資料治理與人工覆核機制。</li>
-  </ul>
-</div>
 </section>
 
 <section class="analysis-section" id="adoption-stages" aria-labelledby="adoption-stages-title">
@@ -665,6 +689,12 @@ body.drawer-open .drawer-backdrop { opacity: 1; pointer-events: auto; }
   <div class="section-heading-text">
     <h2 class="section-title" id="adoption-stages-title"><span class="section-title-icon" aria-hidden="true">stacked_bar_chart</span>AI 採用的三大階段分佈</h2>
     <p class="section-description">以深度整合、局部試行、探索評估三個階段，觀察不同產業從試用到制度化導入的成熟度差異。</p>
+    <div class="section-inline-note" aria-label="採用階段讀圖重點">
+      <ul class="section-inline-note-list">
+        <li><strong>用得多 vs. 用得深</strong>：讀圖時不只看「哪個產業用得多」，也要看「用到多深」。科技軟體與金融科技的深度整合比例較高，代表 AI 已成為工作流的一部分。<span class="chart-note-source">讀圖重點</span></li>
+        <li><strong>低滲透不等於低價值</strong>：醫療、製造與物流雖然仍有較多局部試行，但一旦資料串接與治理成熟，單位流程改善可能帶來更大的營運價值；低滲透往往只是代表導入阻力、責任風險與系統整合成本更高。<span class="chart-note-source">判讀口徑</span></li>
+      </ul>
+    </div>
   </div>
 </div>
 <div class="legend">
@@ -682,10 +712,6 @@ body.drawer-open .drawer-backdrop { opacity: 1; pointer-events: auto; }
     <div class="stage-explanation-item"><strong>局部試行代表</strong> AI 已在特定團隊或任務中帶來效率，但尚未全面接入資料、權限、稽核與跨部門流程。</div>
     <div class="stage-explanation-item"><strong>探索評估代表</strong> 產業仍在驗證資料品質、責任歸屬、投資報酬與法規邊界，使用情境多半停留在原型或輔助工具。</div>
   </div>
-  <ul class="stage-explanation-note chart-note-list">
-    <li><strong>用得多 vs. 用得深</strong>：讀圖時不只看「哪個產業用得多」，也要看「用到多深」。科技軟體與金融科技的深度整合比例較高，代表 AI 已成為工作流的一部分。<span class="chart-note-source">讀圖重點</span></li>
-    <li><strong>低滲透不等於低價值</strong>：醫療、製造與物流雖然仍有較多局部試行，但一旦資料串接與治理成熟，單位流程改善可能帶來更大的營運價值；低滲透往往只是代表導入阻力、責任風險與系統整合成本更高。<span class="chart-note-source">判讀口徑</span></li>
-  </ul>
 </div>
 </section>
 
