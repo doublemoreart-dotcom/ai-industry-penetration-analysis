@@ -130,12 +130,31 @@ button, select { font-family: inherit; }
 }
 .section-heading-text { max-width: 700px; }
 .section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   color: var(--page-text);
   font-size: calc(clamp(20px, 2.4vw, 28px) * var(--page-font-scale));
   font-weight: 650;
   line-height: 1.2;
   margin-bottom: 6px;
   scroll-margin-top: calc(84px * var(--page-font-scale));
+}
+.section-title-icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(28px * var(--page-font-scale));
+  height: calc(28px * var(--page-font-scale));
+  border: 0.5px solid var(--page-border);
+  border-radius: 8px;
+  background: var(--page-surface-alt);
+  color: #378ADD;
+  font-family: "Material Symbols Outlined";
+  font-size: calc(17px * var(--page-font-scale));
+  font-weight: 400;
+  line-height: 1;
 }
 .section-description {
   color: var(--page-text-muted);
@@ -519,7 +538,7 @@ body.drawer-open .drawer-backdrop { opacity: 1; pointer-events: auto; }
 <section class="analysis-section" id="weekly-observation" aria-labelledby="weekly-observation-title">
 <div class="section-heading">
   <div class="section-heading-text">
-    <h2 class="section-title" id="weekly-observation-title">本週觀察</h2>
+    <h2 class="section-title" id="weekly-observation-title"><span class="section-title-icon" aria-hidden="true">insights</span>本週觀察</h2>
     <p class="section-description">追蹤本週 AI 採用、agentic AI 規模化與產業敘事的主要變化，作為整頁資料解讀的入口。</p>
   </div>
 </div>
@@ -574,7 +593,7 @@ body.drawer-open .drawer-backdrop { opacity: 1; pointer-events: auto; }
 <section class="analysis-section" id="industry-adoption" aria-labelledby="industry-adoption-title">
 <div class="section-heading">
   <div class="section-heading-text">
-    <h2 class="section-title" id="industry-adoption-title">各產業 AI 滲透率</h2>
+    <h2 class="section-title" id="industry-adoption-title"><span class="section-title-icon" aria-hidden="true">bar_chart</span>各產業 AI 滲透率</h2>
     <p class="section-description">以 2025 年分析估計比較不同產業的 AI 導入強度，可依滲透率或市場規模重新排序。</p>
   </div>
   <div class="adoption-sort" aria-label="各產業 AI 滲透率排序">
@@ -594,7 +613,7 @@ body.drawer-open .drawer-backdrop { opacity: 1; pointer-events: auto; }
 <hr class="divider">
 <div class="section-heading">
   <div class="section-heading-text">
-    <h2 class="section-title" id="investment-productivity-title">AI 投資規模 vs. 生產力提升預估</h2>
+    <h2 class="section-title" id="investment-productivity-title"><span class="section-title-icon" aria-hidden="true">bubble_chart</span>AI 投資規模 vs. 生產力提升預估</h2>
     <p class="section-description">泡泡圖用來觀察投資強度、生產力提升潛力與市場規模的相對關係，泡泡大小代表市場規模。</p>
   </div>
 </div>
@@ -625,7 +644,7 @@ body.drawer-open .drawer-backdrop { opacity: 1; pointer-events: auto; }
 <hr class="divider">
 <div class="section-heading">
   <div class="section-heading-text">
-    <h2 class="section-title" id="industry-impact-title">各產業 AI 應用實際影響</h2>
+    <h2 class="section-title" id="industry-impact-title"><span class="section-title-icon" aria-hidden="true">workspaces</span>各產業 AI 應用實際影響</h2>
     <p class="section-description">整理各產業較常見的 AI 成效指標與落地限制，點擊卡片可查看更完整的應用、風險與觀察重點。</p>
   </div>
 </div>
@@ -644,7 +663,7 @@ body.drawer-open .drawer-backdrop { opacity: 1; pointer-events: auto; }
 <hr class="divider">
 <div class="section-heading">
   <div class="section-heading-text">
-    <h2 class="section-title" id="adoption-stages-title">AI 採用的三大階段分佈</h2>
+    <h2 class="section-title" id="adoption-stages-title"><span class="section-title-icon" aria-hidden="true">stacked_bar_chart</span>AI 採用的三大階段分佈</h2>
     <p class="section-description">以深度整合、局部試行、探索評估三個階段，觀察不同產業從試用到制度化導入的成熟度差異。</p>
   </div>
 </div>
@@ -674,7 +693,7 @@ body.drawer-open .drawer-backdrop { opacity: 1; pointer-events: auto; }
 <hr class="divider">
 <div class="section-heading">
   <div class="section-heading-text">
-    <h2 class="section-title" id="industry-clusters-title">產業分群解讀</h2>
+    <h2 class="section-title" id="industry-clusters-title"><span class="section-title-icon" aria-hidden="true">hub</span>產業分群解讀</h2>
     <p class="section-description">AI 滲透速度不是只由工具能力決定，也取決於資料密度、流程數位化、責任風險與治理成熟度。</p>
   </div>
 </div>
@@ -706,7 +725,7 @@ body.drawer-open .drawer-backdrop { opacity: 1; pointer-events: auto; }
 <hr class="divider">
 <div class="section-heading">
   <div class="section-heading-text">
-    <h2 class="section-title" id="hybrid-talent-title">混合型人才定義</h2>
+    <h2 class="section-title" id="hybrid-talent-title"><span class="section-title-icon" aria-hidden="true">psychology</span>混合型人才定義</h2>
     <p class="section-description">混合型人才不是什麼都會的人，而是能用 AI 重新編排產品、工程、設計、行銷與商業流程的人。</p>
   </div>
 </div>
@@ -739,7 +758,7 @@ body.drawer-open .drawer-backdrop { opacity: 1; pointer-events: auto; }
 <hr class="divider">
 <div class="section-heading">
   <div class="section-heading-text">
-    <h2 class="section-title" id="hybrid-influence-title">混合型人才影響範圍地圖</h2>
+    <h2 class="section-title" id="hybrid-influence-title"><span class="section-title-icon" aria-hidden="true">account_tree</span>混合型人才影響範圍地圖</h2>
     <p class="section-description">AI 讓產出能力民主化，但讓判斷能力、系統整合能力與品質治理能力變得更稀缺。</p>
   </div>
 </div>
