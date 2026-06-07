@@ -4,7 +4,7 @@
 
 ## 檔案
 
-- `index.html`：本機可上線 MVP 入口頁，目前同步 `ai_industry_penetration_2026-06-06.html`，補齊標準 HTML 外殼、SEO / Open Graph、Chart.js 載入失敗提示、混合型人才分析區塊與公開報告來源池。
+- `index.html`：本機可上線 MVP 入口頁，目前同步 `ai_industry_penetration_2026-06-08.html`，補齊標準 HTML 外殼、SEO / Open Graph、Chart.js 載入失敗提示、混合型人才分析區塊與公開報告來源池。
 - `ai_industry_penetration.html`：原本機版視覺化頁面，保留作為初始版本，不因 MVP 上線入口而覆蓋。
 - `ai_industry_penetration_YYYY-MM-DD.html`：週更後的歷史版本檔案，不覆蓋舊版。
 - `AGENTS.md`：給 Codex / Claude Code / Cursor Agent 讀取的專案規範與任務指引。
