@@ -102,6 +102,16 @@ ai_industry_penetration_2026-06-09.html
 - 若當週沒有可信新數據，可以建立週更檔，但需標註「本週沿用上一期主要量化數據，更新趨勢觀察」。
 - 修改數據時，同步更新圖表、tooltip、KPI 文案與來源註記。
 
+### AI 公司估值排行榜
+
+- 私人公司採最近一輪已完成、可追溯的融資估值；洽談中估值、收購選擇權與未完成交易不列入排名。
+- 上市公司採同一交易日的公司整體市值，不推估 AI 部門價值，也不與私人公司合併排名。
+- 上市公司短期變動採同一市場來源的收盤價計算，並清楚列出起訖交易日；不可用市值差冒充股價報酬。
+- 每筆資料保留 `source_name`、`source_url`、`source_published_at`、`value_as_of`、`source_tier` 與 `methodology_note`。
+- 公司公告優先；無公司公告時可使用 Reuters、Financial Times、Wall Street Journal 等一線媒體。市場市值與歷史價格優先使用交易所或監管來源。
+- 外幣融資估值換算美元時標記為約值，並保留原幣口徑說明。
+- 每次完整更新建立 `data/ai_company_valuation_YYYY-MM-DD.csv`，同步更新頁面卡片、詳情抽屜、資料備註與公開報告來源池。
+
 ## 更新步驟
 
 1. 找出最近一期日期版本；若尚無日期版本，使用 `ai_industry_penetration.html`。

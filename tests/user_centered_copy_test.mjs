@@ -34,6 +34,8 @@ test('reader-facing copy excludes implementation and maintenance language', () =
     'tooltip',
     'KPI 抽屜',
     '請先將程式中的 reportEmail',
+    '新增來源用法',
+    '後續若要改圖表',
     '本區把新增',
   ];
 
@@ -61,4 +63,23 @@ test('copy preserves estimation and methodology qualifiers', () => {
   const required = ['2025 年分析估計', '不直接混用', '2030 年估計', '使用率不等於規模化部署'];
   const missing = required.filter(phrase => !readerHtml.includes(phrase));
   assert.deepEqual(missing, [], `missing qualifiers: ${missing.join(', ')}`);
+});
+
+test('analysis framing uses neutral summary and evaluation language', () => {
+  const forbidden = [
+    '本週觀察',
+    '本週值得注意的變化',
+    '本週主要觀察',
+    '核心洞察',
+    '下一步觀察',
+    '後續觀察',
+    '分榜觀察',
+    '真正值得追蹤的是',
+  ];
+  const required = ['重點摘要', '資料摘要', '主要結論', '後續評估', '分榜比較'];
+
+  const found = forbidden.filter(phrase => copyCorpus.includes(phrase));
+  const missing = required.filter(phrase => !copyCorpus.includes(phrase));
+  assert.deepEqual(found, [], `subjective or time-bound framing remains: ${found.join(', ')}`);
+  assert.deepEqual(missing, [], `missing neutral framing: ${missing.join(', ')}`);
 });

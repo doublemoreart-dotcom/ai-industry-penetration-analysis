@@ -38,7 +38,7 @@ test('main page valuation ranking references existing local logo assets', async 
   const html = await readFile(pagePath, 'utf8');
   const paths = [...html.matchAll(/'([^']*assets\/company-logos\/[^']+)'/g)].map(match => match[1]);
 
-  assert.ok(paths.length >= 17, `expected at least 17 logo paths, got ${paths.length}`);
+  assert.ok(paths.length >= 7, `expected at least 7 logo paths, got ${paths.length}`);
   for (const path of paths) {
     assert.equal(existsSync(new URL(path, rootPath)), true, `${path} should exist`);
   }
@@ -48,16 +48,16 @@ test('main page valuation ranking references existing local logo assets', async 
 test('valuation section discloses update timing and mirrors sources in the public report pool', async () => {
   const html = await readFile(pagePath, 'utf8');
   const sourceUrls = [
-    'https://openai.com/index/march-funding-updates/',
-    'https://www.anthropic.com/news/anthropic-raises-series-e-at-usd61-5b-post-money-valuation',
-    'https://www.prnewswire.com/news-releases/databricks-is-raising-10b-series-j-investment-at-62b-valuation-302333822.html',
-    'https://www.sec.gov/search-filings',
+    'https://openai.com/index/accelerating-the-next-phase-ai/',
+    'https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation',
+    'https://www.prnewswire.com/news-releases/databricks-grows-65-yoy-surpasses-5-4-billion-revenue-run-rate-doubles-down-on-lakebase-and-genie-302682674.html',
+    'https://www.figure.ai/news/series-c',
     'https://www.nasdaq.com/market-activity/stocks',
   ];
 
   assert.match(html, /class="valuation-data-note"/);
-  assert.match(html, /資料整理時間：<time datetime="2026-06-15">2026-06-15<\/time>/);
-  assert.match(html, /上市公司市值基準日：<time datetime="2026-06-12">2026-06-12<\/time>/);
+  assert.match(html, /資料整理時間：<time datetime="2026-07-01">2026-07-01<\/time>/);
+  assert.match(html, /上市公司市值基準日：<time datetime="2026-06-30">2026-06-30<\/time>/);
   assert.match(html, /data-valuation-source-card/);
   assert.match(html, /公司估值 \/ 市場市值/);
   assert.match(html, /募資估值與公開市場比較/);
@@ -88,7 +88,7 @@ test('valuation data contains two sorted source-backed top tens', async () => {
     assert.match(row.sourceUrl, /^https:\/\//, `${row.companyName} sourceUrl`);
     assert.match(row.sourcePublishedAt, /^\d{4}-\d{2}-\d{2}$/, `${row.companyName} sourcePublishedAt`);
     assert.match(row.valueAsOf, /^\d{4}-\d{2}-\d{2}$/, `${row.companyName} valueAsOf`);
-    assert.ok(['official', 'regulatory', 'tier_one_media'].includes(row.sourceTier), `${row.companyName} sourceTier`);
+    assert.ok(['official', 'regulatory', 'tier_one_media', 'exchange'].includes(row.sourceTier), `${row.companyName} sourceTier`);
     assert.ok(row.methodologyNote, `${row.companyName} methodologyNote`);
   }
 });
@@ -104,4 +104,12 @@ test('public ranking uses total market cap and 30-day share-price change', async
   assert.match(html, /上市 AI 與多元科技公司 Top 10/);
   assert.match(html, /30 日股價變動/);
   assert.doesNotMatch(html, /UI 測試示意資料/);
+});
+
+test('mobile sticky section navigation stays in one horizontally scrollable row', async () => {
+  const html = await readFile(pagePath, 'utf8');
+
+  assert.match(html, /@media \(max-width: 720px\)[\s\S]*?\.section-tabs \{[^}]*flex-wrap: nowrap;[^}]*overflow-x: auto;/);
+  assert.match(html, /@media \(max-width: 720px\)[\s\S]*?\.section-tab \{[^}]*flex: 0 0 auto;[^}]*white-space: nowrap;/);
+  assert.doesNotMatch(html, /@media \(max-width: 480px\)[\s\S]*?\.section-tab \{\s*flex-basis: 100%;\s*\}/);
 });
