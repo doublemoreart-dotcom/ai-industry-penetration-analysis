@@ -132,15 +132,15 @@ test('valuation section discloses update timing and mirrors sources in the publi
   const html = await readFile(pagePath, 'utf8');
   const sourceUrls = [
     'https://openai.com/index/accelerating-the-next-phase-ai/',
-    'https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation',
+    'https://apnews.com/article/anthropic-ai-claude-openai-valuation-86c432fa375548fd4f111f8164d6ffc1',
     'https://www.prnewswire.com/news-releases/databricks-grows-65-yoy-surpasses-5-4-billion-revenue-run-rate-doubles-down-on-lakebase-and-genie-302682674.html',
     'https://www.figure.ai/news/series-c',
     'https://www.nasdaq.com/market-activity/stocks',
   ];
 
   assert.match(html, /class="valuation-data-note"/);
-  assert.match(html, /資料整理時間：<time datetime="2026-07-01">2026-07-01<\/time>/);
-  assert.match(html, /上市公司市值基準日：<time datetime="2026-06-30">2026-06-30<\/time>/);
+  assert.match(html, /資料整理時間：<time datetime="2026-07-13">2026-07-13<\/time>/);
+  assert.match(html, /上市公司市值仍沿用 <time datetime="2026-06-30">2026-06-30<\/time> Nasdaq 基準日/);
   assert.match(html, /data-valuation-source-card/);
   assert.match(html, /公司估值 \/ 市場市值/);
   assert.match(html, /募資估值與公開市場比較/);
@@ -159,6 +159,10 @@ test('valuation data contains two sorted source-backed top tens', async () => {
 
   assert.equal(privateRows.length, 10);
   assert.equal(publicRows.length, 10);
+  assert.equal(privateRows[0].companyName, 'Anthropic');
+  assert.equal(privateRows[0].valueUsd, 965e9);
+  assert.equal(privateRows[0].previousValueUsd, 380e9);
+  assert.equal(privateRows[0].sourceTier, 'tier_one_media');
   for (const requiredName of ['NVIDIA', 'Microsoft', 'Apple', 'Alphabet', 'Amazon', 'Meta']) {
     assert.ok(publicRows.some(row => row.companyName === requiredName), `${requiredName} should be included`);
   }

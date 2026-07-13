@@ -4,7 +4,7 @@
 
 ## 檔案
 
-- `index.html`：根網址相容入口，目前同步 `ai_industry_penetration_2026-07-05.html`。
+- `index.html`：根網址相容入口，目前同步 `ai_industry_penetration_2026-07-13.html`。
 - `aidata/index.html`：正式專案網址入口，與根目錄 `index.html` 保持完全同步。
 - `ai_industry_penetration.html`：原本機版視覺化頁面，保留作為初始版本，不因 MVP 上線入口而覆蓋。
 - `ai_industry_penetration_YYYY-MM-DD.html`：週更後的歷史版本檔案，不覆蓋舊版。
@@ -12,7 +12,7 @@
 - `DATA_UPDATE.md`：週更節奏、資料來源、檔名規則與更新清單。
 - `WEB_SPEC.md`：每次週更都必須遵守的網頁閱讀性、主題、字級與 RWD 規範。
 - `data/ai_public_reports_for_codex.csv`：公開報告來源索引，只作為引用候選與選題提示；未核定口徑前不直接改 KPI 或圖表數字。
-- `data/ai_company_valuation_2026-07-01.csv`：AI 公司估值排行榜的查核快照，保存估值／市值、基準日、來源層級與方法備註。
+- `data/ai_company_valuation_2026-07-13.csv`：AI 公司估值排行榜的最新查核快照，保存估值／市值、基準日、來源層級與方法備註。
 - `ai_company_valuation_ranking_test.html`：AI 公司估值排行榜的獨立 UI 測試頁，不列入正式頁面導覽。
 - `tests/ai_company_valuation_ranking_test.mjs`：排行榜原型的 Node 靜態契約測試。
 
