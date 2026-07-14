@@ -77,11 +77,17 @@ test('industry adoption visual theme rules override the generic image display ru
   assert.match(html, /:root\[data-theme="dark"\] \.section-visual \.section-visual-image-dark \{ display: block; \}/);
 });
 
-test('investment productivity visual is placed in its analysis section', async () => {
+test('investment productivity visual is placed in its analysis section and has no visible text nodes', async () => {
   const html = await readFile(rootPagePath, 'utf8');
+  const [lightSvg, darkSvg] = await Promise.all([
+    readFile(new URL('../assets/investment-productivity-hero.svg', import.meta.url), 'utf8'),
+    readFile(new URL('../assets/investment-productivity-hero-dark.svg', import.meta.url), 'utf8'),
+  ]);
 
   assert.match(html, /id="investment-productivity"[\s\S]*src="assets\/investment-productivity-hero\.svg"/);
   assert.match(html, /id="investment-productivity"[\s\S]*src="assets\/investment-productivity-hero-dark\.svg"/);
+  assert.doesNotMatch(lightSvg, /<text\b/);
+  assert.doesNotMatch(darkSvg, /<text\b/);
 });
 
 test('industry impact visual is placed in its analysis section and has no visible text nodes', async () => {
