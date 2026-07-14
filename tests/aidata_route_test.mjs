@@ -32,13 +32,15 @@ test('aidata route includes every relative company logo asset used by the page',
 
 test('aidata route includes the hero visual asset used by the page', async () => {
   const html = await readFile(rootPagePath, 'utf8');
-  const paths = [...html.matchAll(/src="(assets\/(?:ai-industry-data-observation|industry-adoption|investment-productivity|industry-impact|adoption-stages|industry-clusters)-hero(?:-dark)?\.svg)"/g)].map(match => match[1]);
+  const paths = [...html.matchAll(/src="(assets\/(?:ai-industry-data-observation|industry-adoption|investment-productivity|industry-impact|adoption-stages|industry-clusters|hybrid-talent)-hero(?:-dark)?\.svg)"/g)].map(match => match[1]);
 
   assert.deepEqual(paths.sort(), [
     'assets/adoption-stages-hero-dark.svg',
     'assets/adoption-stages-hero.svg',
     'assets/ai-industry-data-observation-hero-dark.svg',
     'assets/ai-industry-data-observation-hero.svg',
+    'assets/hybrid-talent-hero-dark.svg',
+    'assets/hybrid-talent-hero.svg',
     'assets/industry-adoption-hero-dark.svg',
     'assets/industry-adoption-hero.svg',
     'assets/industry-clusters-hero-dark.svg',
@@ -103,6 +105,19 @@ test('industry clusters visual is placed in its analysis section and has no visi
 
   assert.match(html, /id="industry-clusters"[\s\S]*src="assets\/industry-clusters-hero\.svg"/);
   assert.match(html, /id="industry-clusters"[\s\S]*src="assets\/industry-clusters-hero-dark\.svg"/);
+  assert.doesNotMatch(lightSvg, /<text\b/);
+  assert.doesNotMatch(darkSvg, /<text\b/);
+});
+
+test('hybrid talent visual is placed in its analysis section and has no visible text nodes', async () => {
+  const html = await readFile(rootPagePath, 'utf8');
+  const [lightSvg, darkSvg] = await Promise.all([
+    readFile(new URL('../assets/hybrid-talent-hero.svg', import.meta.url), 'utf8'),
+    readFile(new URL('../assets/hybrid-talent-hero-dark.svg', import.meta.url), 'utf8'),
+  ]);
+
+  assert.match(html, /id="hybrid-talent"[\s\S]*src="assets\/hybrid-talent-hero\.svg"/);
+  assert.match(html, /id="hybrid-talent"[\s\S]*src="assets\/hybrid-talent-hero-dark\.svg"/);
   assert.doesNotMatch(lightSvg, /<text\b/);
   assert.doesNotMatch(darkSvg, /<text\b/);
 });
