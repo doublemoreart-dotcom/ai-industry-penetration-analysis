@@ -32,13 +32,15 @@ test('aidata route includes every relative company logo asset used by the page',
 
 test('aidata route includes the hero visual asset used by the page', async () => {
   const html = await readFile(rootPagePath, 'utf8');
-  const paths = [...html.matchAll(/src="(assets\/(?:ai-industry-data-observation|industry-adoption|investment-productivity)-hero(?:-dark)?\.svg)"/g)].map(match => match[1]);
+  const paths = [...html.matchAll(/src="(assets\/(?:ai-industry-data-observation|industry-adoption|investment-productivity|industry-impact)-hero(?:-dark)?\.svg)"/g)].map(match => match[1]);
 
   assert.deepEqual(paths.sort(), [
     'assets/ai-industry-data-observation-hero-dark.svg',
     'assets/ai-industry-data-observation-hero.svg',
     'assets/industry-adoption-hero-dark.svg',
     'assets/industry-adoption-hero.svg',
+    'assets/industry-impact-hero-dark.svg',
+    'assets/industry-impact-hero.svg',
     'assets/investment-productivity-hero-dark.svg',
     'assets/investment-productivity-hero.svg',
   ]);
@@ -72,6 +74,13 @@ test('investment productivity visual is placed in its analysis section', async (
 
   assert.match(html, /id="investment-productivity"[\s\S]*src="assets\/investment-productivity-hero\.svg"/);
   assert.match(html, /id="investment-productivity"[\s\S]*src="assets\/investment-productivity-hero-dark\.svg"/);
+});
+
+test('industry impact visual is placed in its analysis section', async () => {
+  const html = await readFile(rootPagePath, 'utf8');
+
+  assert.match(html, /id="industry-impact"[\s\S]*src="assets\/industry-impact-hero\.svg"/);
+  assert.match(html, /id="industry-impact"[\s\S]*src="assets\/industry-impact-hero-dark\.svg"/);
 });
 
 test('project docs identify /aidata/ as the public project URL and require route sync', async () => {
