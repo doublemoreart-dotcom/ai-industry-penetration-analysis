@@ -8,6 +8,8 @@ const aidataPagePath = new URL('../aidata/index.html', import.meta.url);
 const aidataRootPath = new URL('../aidata/', import.meta.url);
 const sporttechPagePath = new URL('../sporttech/index.html', import.meta.url);
 const sporttechRootPath = new URL('../sporttech/', import.meta.url);
+const directoryPagePath = new URL('../48DIRECTORY/index.html', import.meta.url);
+const directoryRootPath = new URL('../48DIRECTORY/', import.meta.url);
 const tpTreesPagePath = new URL('../tptrees/index.html', import.meta.url);
 const tpTreesLifecyclePath = new URL('../tptrees/lifecycle/index.html', import.meta.url);
 const tpTreesSpeciesPath = new URL('../tptrees/species/index.html', import.meta.url);
@@ -28,6 +30,7 @@ test('root publishes a project portal while /aidata/ keeps the AI report', async
   assert.match(portalPage, /href="\/tptrees\/"/);
   assert.match(portalPage, /href="\/aidata\/"/);
   assert.match(portalPage, /href="\/sporttech\/"/);
+  assert.match(portalPage, /href="\/48DIRECTORY\/"/);
   assert.match(aidataPage, /AI 對產業的數據觀察/);
   assert.notEqual(aidataPage, portalPage);
 });
@@ -40,6 +43,19 @@ test('sporttech route publishes its static page and local assets', async () => {
   assert.ok(paths.length >= 3, `expected SportTech local asset references, got ${paths.length}`);
   for (const path of paths) {
     assert.equal(existsSync(new URL(path, sporttechRootPath)), true, `${path} should load below /sporttech/`);
+  }
+});
+
+test('48DIRECTORY route publishes its static page and local assets', async () => {
+  const html = await readFile(directoryPagePath, 'utf8');
+  assert.match(html, /<title>48 DIRECTORY \(Beta\)<\/title>/);
+  assert.match(html, /id="members"/);
+  assert.match(html, /id="ranking"/);
+
+  const paths = [...html.matchAll(/["']((?:\.\/)?assets\/[^"']+)["']/g)].map(match => match[1]);
+  assert.ok(paths.length >= 100, `expected 48 DIRECTORY local asset references, got ${paths.length}`);
+  for (const path of new Set(paths)) {
+    assert.equal(existsSync(new URL(path, directoryRootPath)), true, `${path} should load below /48DIRECTORY/`);
   }
 });
 
